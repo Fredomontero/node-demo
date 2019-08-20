@@ -1,0 +1,157 @@
+Node Demo Part 1 Guideline
+
+-----------------------------------------
+|           [1] What is Node?           |
+-----------------------------------------
+
+Nodejs is an open source and crossplatform runtime for executing javascript code outside of the browser quite often we use Node to build back-end services also called API's which stands for Application Programming Interface, this are the services that power our client applications (web or mobile apps). Node is ideal for building high-scalable, data-intensive and real time backend services that powers or client applications.
+
+There are other technologies, tools and framework for building backend services such as ASP.net, rails, django and so on. so why should we use Node?
+
+[1] It's easy to get started and great for prototyping and agile development.
+[2] Superfast and highly sacable applications (it's used on production for paypal, uber, netflix, walmart)
+    Curious fact is that Paypal rebuild one of their java and spring based applications using node and they find that:
+    [1] Built the new Application twice as fast with fewer people.
+    [2] 33% fewer lines of code.
+    [3] 40% fewer files.
+    [4] 2x request/sec (they double the number of requests serve by second)
+    [5] 35% faster reponse time (decrease the response time by 35%)
+[3] Javascript everywhere.
+[4] Cleaner and more consistent codebase because of JavaScript everywhere because you use the same name convention, the same best practices and same tools.
+[5] Largest ecosystem of open source libraries availble for you, so for pretty any feature or building block that you will need on your application there is some open source library that you can use, so you don't have to build this building blocks from scratch and instead we can focus on the core of our application.
+
+What is scalability?
+Scalibility is the ability of a program to scale. For example, if you can do something on a small databse (say less than 1000 records) a program that is highly scalable would work well on a small set as well as working on a large set (let's say millions or billions of records).
+
+Why use Node.js for Real Time Applications?
+
+It's great for building data-intensive real-time applications. Node.js offers greater performance and speed in applications like messaging or chatting applications. Node uses a single-threaded model with event looping. This type of mechanism benefits the server to respond in a non-blocking way.
+
+--- 10 min ---
+
+Read this: https://www.freelancinggig.com/blog/2017/01/26/node-js-popular-real-time-applications/
+
+----------------------------------------------------------------------------------------
+|           [2] Differences between Javascript using Node and in the browser           |
+----------------------------------------------------------------------------------------
+
+Typing the keywod node in the terminal, allows us to write code and execute it.
+
+In the browser Window is the global object, it stores basically everything you have access to.
+We have something similar inside Node called global. It's not called window because there is not
+browser window in Node, thus it is called global. The global object stores a lot of the same
+things as window.
+
+type window on Chrome's console
+type global on the cmd
+
+Inside the browser we also have the document object that stores a reference to the Document Object Model (DOM)
+in the Node website. The document object shows exactly what I have inside the browser's viewport. In Node we
+don't have this document object, but we do have something similar, which is called process. We can view it by 
+running process from Node, and in the following screenshot, we have a lot of information about the specific Node
+process that's being executed.
+
+type document on Chrome's console
+type process on the cmd
+
+So, Now when someone ask you what is Node? You can say Node's a JavaScript runtime that uses the V8 engine. When they ask you
+what the V8 engine is, you can say the V8 engine is an open source JavaScript engine written in C++ that takes the JavaScript 
+code and compiles it to machine code. It's used inside Node.js and it's used in the Chrome browser.
+
+--------------------------------------------------------
+|           [3] Create First Node Application          |
+--------------------------------------------------------
+
+[1] Create a new Folder
+[2] Create a new JS file inside i.e.: app.js
+[3] Run with node app.js
+
+--- 20 min ---
+
+ ----------------------------------------
+|           [4] Module Basics          |
+----------------------------------------
+
+Modules are units of functionality, so imagine I create a few functions that do something similar, such as a few functions 
+that help with math problems, for example, add, substract and divide. I could bundle those up as a module, call it Montero math
+and other people could take advantage of it.
+
+So, first we will not looking at making our own modules, we will be looking at how we can use modules, and that will be done using a function in Node, called require().
+We can use require() to load third party libraries, such express. The require() function will let us do 3 things:
+
+1.- First It'll lets us load in modules that come buncled with Node.js. these include the http module, wich lets us make a web server, and the ds module, which lets us access the file system
+    for our machine.
+2.- We'll be able to use prewritten libraries to handle complex problems, and all we need to do is implement require() by calling a few methods.
+3.- We will use require() to require our very own files. It will let us break uo our application into multiple, smaller files, which is essential for building real-world applications.
+
+HOW TO INITIALIZE AN APPLICATION?
+
+1.- cd [parent folder]
+2.- mkdire [main folder]
+3.- cd [main-folder]
+4.- create app.js file -> console.log("starting App...")
+
+    So first we will be creating and appendinf files with the File System module
+    we can see built-in modules docs in the next page: https://nodejs.org/api/
+    So when we view the docs page for a built-in module, we will see a long list of all the different functions and properties that we hace availblefor us.
+
+    Now, appendFile is pretty simple. We'll pass to it two string arguments:
+    One will be the file name
+    The other will be the data we want to append to the file
+    This is all we need to provide in order to call fs.appendFile. Before we can call fs.appendFile, we need to require it. The whole point of requiring is to let us load in other modules. In this case, we'll load in the fs module from app.js.
+
+
+    //Example1.js
+
+    fs.appendFile('greetings.txt', 'Hello world!');
+
+    or
+
+    fs.appendFile('greetings.txt', 'Hello world!', function (err){
+        if (err) {
+            console.log('Unable to write to file');
+        }
+    });
+
+    The second module that we'll be using is OS, and we can view it in the documentation, we'll be using the method defined at the very bottom os.userInfo([options])
+    The os.userInfo([options]) methods gets called and returns various information about the currently logged-in user, such as the username.
+
+    //Example1.js
+
+    const os = require("os");
+    var user = os.userInfo();
+    console.log(user);
+
+    after exploring what we got back, we can see that the username could be helpful to customize our greeting text
+
+    const fs = require("fs");
+    const os = require("os");
+
+    var user = os.userInfo();
+
+    fs.appendFile('greetings.txt', 'Hello' + user.username, function (err){
+        if (err) {
+            console.log('Unable to write to file');
+        }
+    });
+
+    --- 30 min ---
+
+    We can use template strings:
+
+    fs.appendFile('greetings.txt', `Hello + ${ user.username }`, function (err){
+        if (err) {
+            console.log('Unable to write to file');
+        }
+    });
+
+
+--------------------------------------------
+|           [5] Require Own Files          |
+--------------------------------------------
+
+Now we will see how to use require() to load in other files that we have created, this will make our applications easier to scale, test, and update. 
+To get started we will create first a new file called notes.js and test2.js, first we will only console.log inside notes.js
+
+//Notes.js
+console.log(""Starting notes.js");

@@ -1,0 +1,293 @@
+-----------------------------------------
+|           [1] What is Node?           |
+-----------------------------------------
+
+Node came about when the original developers took Javascript, something you could  usually only run inside the browser
+and they let it run on your machine as a standalone process. This means that we could create applications using javascript 
+outside the context of the browser.
+
+With Node we now have a feature set that looks much more similar to other languages, such as Java, Python, or PHP. Some of
+these are as follows:
+
+- We can write Node appplications using the JavaScript Syntax.
+- You can manipulate your Filesystem, creating and removing folders.
+- You can create query databases directly.
+- You can even create web servers using Node.
+
+Now, both Node and the JavaScript that gets executed inside of your browser, they're both running in the exact
+same engine. It's called the V8 JavaScript runtime engine. It's an open source engine that takes JavaScript code and
+compiles it into much faster machine code. And that's a big part of what makes Node.js so fast.
+
+Using the V8 engine, we can take our JavaScript code, compile it to much quicker machine code, and execute that.
+This means that I can run something like console.log which, as you probably already know, logs a message to the screen.
+So, Node takes your Javascript code, it compiles it into machine code, and executes it.
+
+----------------------------------------------------------------------------------------
+|           [2] Differences between Javascript using Node and in the browser           |
+----------------------------------------------------------------------------------------
+
+In the browser Window is the global object, it stores basically everything you have access to.
+We have something similar inside Node called global. It's not called window because there is not
+browser window in Node, thus it is called global. The global object stores a lot of the same
+things as window.
+
+Inside the browser we also have the document object that stores a reference to the Document Object Model (DOM)
+in the Node website. The document object shows exactly what I have inside the browser's viewport. In Node we
+don't have this document object, but we do have something similar, which is called process. We can view it by 
+running process from Node, and in the following screenshot, we have a lot of information about the specific Node
+process that's being executed.
+
+So, Now when someone ask you what is Node? You can say Node's a JavaScript runtime that uses the V8 engine. When they ask you
+what the V8 engine is, you can say the V8 engine is an open source JavaScript engine written in C++ that takes the JavaScript 
+code and compiles it to machine code. It's used inside Node.js and it's used in the Chrome browser.
+
+-------------------------------------
+|           [3] Why Node?           |
+-------------------------------------
+
+Why is good creating backend apps? And why is it becoming so popular with companies uch as Netflix, Uber and Walmart, 
+who are all using Node.js in production?
+Node.js is a JavaScript runtime built on Chrome's V8 JavaScript engine. Node.js uses and event-driven, non-blocking I/O
+model that makes it lightwweight and efficent. Node.js package ecosystem, npm, is the largest ecosystem of open
+source libraries.
+
+Node is an event-driven, non-blocking language. What is I/O? I/O is something that your application does all of the time.
+When you're reading or writing to a database, that is I/O, which is short from Input/Output. This is the communiation from 
+your Node application to other things inside of the internet of things. this could be a database read or write request,
+you may be changing some files on your Filesystem, or you may be making an HTTP request to a separate web server such as 
+a google API for fetching a map for the user's curent location. All of these use I/O, and I/O takes time. Now, the non-blocking
+I/O is great. That means while one user is requesting a URL from Google, other users can be requesting a database file read 
+and write access, they can be requesting all sorts of things without preventing anyone else from getting some work done.
+
+-------------------------------------------------------------------------
+|           [3] Blocking and non-blocking software development          |
+-------------------------------------------------------------------------
+
+--- Example of blocking software ---                                            --- Example of non-blocking software ---
+
+var getUsersSync = require("./getUsersSync");                                   var getUser = require("./getUser");
+
+var user1 = getUsersSync("123");                                                getUser("123", function(user1){
+console.log("User 1: ", user1);                                                     console.log("User 1: ", user1);
+                                                                                });
+var user2 = getUsersSync("321");                                                
+console.log("User 2: ", user2);                                                 getUser("321", function(user2){
+                                                                                    console.log("User 2: ", user2);
+console.log(1 + 2);                                                             });
+
+                                                                                console.log(1+2);
+
+The first line on each code is reponsible for fetching a function that gets called. This function will be our simulated
+I/O function that is going to a database, fetching some user data and printing it to the screen. Fater we load in the function
+both files try to fetch a user with an Id of 123. When it gets that user, it prints it to a screen with the user1 string
+first and then it goes on and it fetches the user with 321 as the ID. And it prints that on the screen.
+
+Blocking I/O means that when we're fetching from the database, which is an I/O operation, our application cannot do anything else.
+This means our machine sits around idle waiting for the database to respond, and can't even do something simple like adding 2 numbers.
+
+Non-blocking means that while we ask for the information we will not be waiting for that data to be retrieved for soing something 
+else, it just kick off that event, so after that it ask for more information, and after that prints the result of the add operation
+and as soon as we got the data it prints it.
+
+Using non-blocking doesn't make our I/O operations any faster, but what it does is it lets us run more than one operation at the same
+time. They can do so many things at the exact same time without having to worry about the confussion of multi-threading applications.
+
+Npm which is abailable on npmjs.org is the site we'll be turning to for a lot of third-party modules. This is one of the reasons
+of why Node is so cool, it's non-blocking, meaning is great for I/O applications, and it has a fantastic community of developers,
+so if you ever want to get anything done, there's a chance someone already wrote the code to do it.
+
+--------------------------------------------------------
+|           [4] Create First Node Application          |
+--------------------------------------------------------
+
+[1] Create a new Folder
+[2] Create a new JS file inside i.e.: app.js
+[3] Run with node app.js
+
+--------------------------------------------
+|           [5] Node Fundamentals          |
+--------------------------------------------
+
+[A] Module basics
+[B] Require own files
+[C] Third-party modules
+[D] Global modules
+[E] Getting input
+
+    ----------------------------------------
+    |           [A] Module Basics          |
+    ----------------------------------------
+
+    Modules are units of functionality, so imagine I create a few functions that do something similar, such as a few functions 
+    that help with math problems, for example, add, substract and divide. I could bundle those up as a module, call it Montero math
+    and other people could take advantage of it.
+
+    We'll not be looking at how to make our own module; in fact we will be looking at how we can use modules, and that will be done 
+    using a function in Node, called require(). The require() function will let us do 3 things:
+
+    1.- First it'll let us load modules that come bundled with Node.js. These include the HTTP module, which lets us make a web server,
+    and the fs module that lets us access the filesystem for our machine. We will also be using require() to load third-party
+    libraries , such as Express and Sequelize, which let us write less code.
+
+    2.- We will be able to use prewritten libraries to handle complex problems, and all we need to do is implement require() by calling
+    a few methods.
+
+    --------------------------------------------
+    |           [B] Require own Files          |
+    --------------------------------------------
+
+    1.- We will use require() to require our very own files. It will let us break up our application into multiple, smaller files, which
+    is essential for building real-world apps.
+
+    When we load third-party libraries, inside the require parenthesis we pass as an argument the name of the module, i.e. 'fs' or 'os'
+    when we want to load our own files, we have to soemthing a little bit different, we need to tell Node where that file lives using
+    a relative path. Now the relative paths start with ./ (a dot forward slash), which points to the current directory that the file is in.
+    In this case, this points to the app.js directory, which is the root of our project notes-node. From here, we don't have to go into any
+    other folders to access notes.js, it's in the root of our project, so we can type its name.
+
+    There's also another way to use the code of our own files in another file, exporting functionality
+
+    ----------------------------------------------
+    |           [C] Third-party modules          |
+    ----------------------------------------------
+
+    Creating projects using npm modules
+
+    The reason we'd want to use npm modules is that we don't have to spend all our time writing utility functions that alreasy exist, not only 
+    do they exist, they have been tested, they have been proven to work, and others have used them and documented them.
+
+    To install an npm modele, first we have to initialise our project with the command npm init, a couple of question will be displayed 
+    and we have to answer them, questions like, the description, version, author, etc of our application. Once we have already done that 
+    we have to grab de module name that we want to install and use the npm intsall [module_name] we can also use the save flag, which
+    is an s preceded by 2 hyphens, like this: npm install lodash --save, so this will automatically update the content in the JSON file.
+
+    -----------------------------------------
+    |           [D] Global Modules          |
+    -----------------------------------------
+
+    When we use the global flag (g) like when we install nodemone which is a module that will take care of update and restart our application
+    everytime we make a change. when we install using the global flag means that is a global utility on the machine, which means it'll not 
+    get added to the specific project and we will not require nodemon. Instead, we will be running nodemon command from Terminal.
+    It will add it into the installation where Node and npm live on the machine.
+
+    -----------------------------------------
+    |           [E] Getting Input           |
+    -----------------------------------------
+
+    We can pass arguments into our application like this:
+    node app.js add
+    node app.js delete
+    node app.js list
+
+    The argv objects is short for arguments vector, or in the case of JavaScript, it's more like an arguments Array.
+
+-----------------------------------
+|           [6] Debugger          |
+-----------------------------------
+
+We can use the native Node debugger by running this command: node inspect app.js
+then we need to press the n key that means next like next line, so the program will execute line by line
+we can type the repl command and we will have an area to write node code.
+More importantly we have access to the current program as it sits, we can use this to print the variables of our program.
+This is where debugging gets really useful. Being able to look at the program paysed at a certain point in timeis going 
+to make it really easy to stop errors.
+
+Most of the time our programs are going to be very extended, so moving line by line could be not the best option
+In order to solve that problem we can use the debugger keyword, lets say that we want to stop in line 500
+we have to go into our code, and write the debugger keyword on that line. when we have the  debugger statement, it tells
+Node debugger to stope there, which means instead of using n (next) to go statement by statement, we can use
+c (continue) which is going to continue until either the program exits or it sees one of the debugger keywords.
+
+-----------------------------------------
+|           [7] Advanced Yargs          |
+-----------------------------------------
+
+--------------------------------------------------------------------
+|           [8] Basic Asynchronous Programming in Node.js          |
+--------------------------------------------------------------------
+
+- Basic concept of asynchronous programming:
+- Call stack and event loop
+- Callback functions and APIs
+- HTTPS requests
+
+The call stack: The call stack is really simple data structure that keeps track of program execution inside of a V8.
+It keeps track of the functions currently executing and the statements that are fired. The call stack is really simple
+data structure that can do two things:
+- You can add something on top of it.
+- You can remove the top item.
+
+Event loop: The event loop takes a look at the Call Stack, If the Call Stack is not empty, it doesn't do anything
+because it can't, there is nothing it can do you can only run one thing at a time. If the Call Stack is empty, the 
+Event Loop says great, let's see if there's anything to run. In our case, there is a callback function, but because 
+we don't have an empty Call Stack, the Event Loop can't run it.
+
+---------------------------------------------------------------
+|           [9] Promises in Asynchronous Programming          |
+---------------------------------------------------------------
+
+- Introduction to ES6 Promises
+- Advanced promises.
+- Weather app with promises.
+
+When we are cahining promises and we include a resolve and reject handler for each one, in there's a problem with the first one, it gets rejected
+but if in the next line we have another promise, the second promise will be executed as well, in some cases this migth not be what we want.
+In order to fix that we can remove all the error handlers and use just one single catch block.
+
+----------------------------------------------
+|           [10] Web Servers in Node          |
+----------------------------------------------
+
+In order to make a new Express app we need to make a variable called app and set it equal to the return result from calling express as a function.
+
+In order to create an app, all we have to do is call the method. Next to the variable app we can start setting up all of our HTTP route handlers. For example
+,if someone visits the root of the website we're going to want to send something back. Maybe it's some JSON data, maybe it's an HTML page.
+
+We can register a handler using app.get function. This will let us set up a handler for an HTTP request. There are 2 arguments we have to pass into app.get:
+    
+    1.- The first argument is going to be an URL.
+    2.- The second argument is going to be the function to run; the function that tells Express what to send back to the person who made at the request.
+        
+In this case we are looking for the root of the pafe , so we can use forward salsh (/) for the first arguent. In the second argument, well use a simple arrow function (=>)
+as shown here:
+
+app.get('/', (req, res) => {})
+
+Now the arrow function will get called with 2 arguments. These are really important to how express works:
+
+    1.- The first argument is request (red) stores a ton of information  about the request coming in. Things like the headers that were used, any body 
+    information, or the method that was made witha  request to the path. All of that is stored in the request.
+    2.- The seconf argument, respond (res) has a bunch of methods available so we can respond to the HTTP request in whatever way we like. We can customize what
+    data we send back ans we could set our HTTP status code.
+
+What's the middleware?
+Middleware lets us configure how our express application works, and it's something we'll use extensively throughout the book. For now, we can think of like a third-party
+add-on. In order to add some middleware, well call app.use. The app.use takes the middleware function we want to use. In our case, we'll use a built-in piece of middleware.
+So inside server.js, next to the variable app statement, we'll provide the function off of the express object. Also express middlewear is a fantastic tool. It allows you
+to add on to the text existing functionality that Express has. So if Express doesn't do something you'd like to so, you can add some middlewear and teach it how to do it.
+
+Why to use Partials?
+The real power of partials is when you have some code that we want to reuse inside our website, so we simply create  apartial and we inject it wherever we want.
+
+---------------------------------------------------------
+|           [11] Deploying applications to Web          |
+---------------------------------------------------------
+
+Turn the node-server into a Git repo
+
+1.- git init
+2.- Create a .gitignore file and write inside it the files/folders that you don't want to keep track of it
+3.- Add the files that you want to keep track with git add [name] or git add . to add everything
+4.- 
+
+In Heroku CLI
+
+1.- heroku create
+2.- git heroku push
+3.- 
+
+-----------------------------------------------------
+|           [12] Testing Node Applications          |
+-----------------------------------------------------
+
+We'll be doing the testing using the super populartesting framework Mocha,
